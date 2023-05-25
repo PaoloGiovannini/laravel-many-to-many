@@ -13,7 +13,7 @@ class StoreTechnologyRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,15 @@ class StoreTechnologyRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name'=> 'required|max:150'
+        ];
+    }
+
+    public function messages()
+    {
+        return[
+            'name.required' => 'il nome è obbligatorio',
+            'name.max' => 'il nome deve avere al massimo :max caratteri',
         ];
     }
 }

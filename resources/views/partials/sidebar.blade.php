@@ -31,6 +31,18 @@
                     <span class="ms-1 d-none d-sm-inline">Crea nuova tipologia</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="{{route('admin.technologies.index')}}" class="nav-link align-middle px-0">
+                    <i class="bi bi-eye"></i>
+                    <span class="ms-1 d-none d-sm-inline">Visualizza tecnologie</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{route('admin.technologies.create')}}" class="nav-link align-middle px-0">
+                    <i class="bi bi-plus"></i>
+                    <span class="ms-1 d-none d-sm-inline">Crea nuova tecnologia</span>
+                </a>
+            </li>
         </ul>
     </div>
 </div>
