@@ -12,6 +12,7 @@
                 <th scope="col">Titolo</th>
                 <th scope="col">Slug</th>
                 <th scope="col">Tipologia</th>
+                <th scope="col">Tecnologie</th>
                 <th scope="col">Azioni</th>
             </tr>
         </thead>
@@ -22,6 +23,11 @@
                     <td>{{ $project->title }}</td>
                     <td>{{ $project->slug }}</td>
                     <td>{{$project->type?->name}}</td> 
+                    <td>
+                        @foreach ($project->technologies as $technology)
+                            <span class="badge rounded-pill text-bg-info">{{$technology->name}}</span>
+                        @endforeach
+                    </td>
                     <td class="d-flex align-items-center">
                         <a class="btn rounded-pill btn-primary me-2" href="{{route('admin.projects.show', $project->slug)}}">VEDI</a>
                         <a href="{{route('admin.projects.edit', $project->slug)}}" class="btn rounded-pill btn-warning me-2">MODIFICA</a>

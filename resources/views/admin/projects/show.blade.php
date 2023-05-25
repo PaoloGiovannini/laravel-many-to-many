@@ -8,6 +8,9 @@
                 <h5 class="card-title">{{ $project->title }}</h5>
                 <p class="card-text">{{ $project->content }}</p>
                 <p>Slug: {{ $project->slug }}</p>
+                @foreach ($project->technologies as $technology)
+                    <span class="badge rounded-pill text-bg-info">{{$technology->name}}</span>
+                @endforeach
                 <small class="d-block text-end">Tipologia: {{$project->type?$project->type->name:'Nessuna tipologia'}}</small>
             </div>
         </div>
