@@ -8,7 +8,8 @@
             @method('PUT')
             <div class="mb-3">
                 <label for="title" class="form-label">Titolo:</label>
-                <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" value="{{old('title', $project->title)}}">
+                <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title"
+                    value="{{ old('title', $project->title) }}">
                 @error('title')
                     <div class="invalid-feedback">
                         {{ $message }}
@@ -18,7 +19,7 @@
 
             <div class="mb-3">
                 <label for="content" class="form-label">Descrizione</label>
-                <textarea class="form-control @error('content') is-invalid @enderror" id="content" name="content">{{old('content', $project->content)}}</textarea>
+                <textarea class="form-control @error('content') is-invalid @enderror" id="content" name="content">{{ old('content', $project->content) }}</textarea>
                 @error('content')
                     <div class="invalid-feedback">
                         {{ $message }}
@@ -35,6 +36,26 @@
                     @endforeach
                 </select>
                 @error('type_id')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+
+            <div class="mb-3">
+                @foreach ($technologies as $technology)
+                    @if ($errors->any())
+                        <input id="technology_{{ $technology->id }}" @if (in_array($technology->id, old('technologies', []))) checked @endif
+                            type="checkbox" name="technologies[]" value="{{ $technology->id }}">
+                    @else
+                        <input id="technology_{{ $technology->id }}" @if ($project->technologies->contains($technology->id)) checked @endif
+                            type="checkbox" name="technologies[]" value="{{ $technology->id }}">
+                    @endif
+
+                    <label for="technology_{{ $technology->id }}" class="form-label">{{ $technology->name }}</label>
+                    <br>
+                @endforeach
+                @error('technologies')
                     <div class="invalid-feedback">
                         {{ $message }}
                     </div>
