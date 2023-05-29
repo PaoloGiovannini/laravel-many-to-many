@@ -30,7 +30,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        $types= Type::all();
+        $types = Type::all();
         $technologies = Technology::all();
         return view('admin.projects.create', compact('types', 'technologies'));
     }
@@ -83,7 +83,7 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        $types= Type::all();
+        $types = Type::all();
         $technologies = Technology::all();
         return view('admin.projects.edit', compact('project', 'types', 'technologies'));
     }
@@ -99,8 +99,18 @@ class ProjectController extends Controller
     {
         $form_info = $request->validated();
         $form_info['slug'] = Project::generateSlug($request->title);
-        $project->update($form_info);
+        if ($request->hasFile('image')) {
+
+            if ($project->image) {
+                Storage::delete($project->image);
+            }
+
+            $img_path = Storage::put('image', $request->image);
+            $form_info['image'] = $img_path;
+
+        }
         $project->technologies()->sync($request->technologies);
+        $project->update($form_info);
         return redirect()->route('admin.projects.show', ['project' => $project->slug]);
     }
 
