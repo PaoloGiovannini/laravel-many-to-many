@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Project;
 use App\Models\Technology;
 use App\Models\Type;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -47,6 +48,12 @@ class ProjectController extends Controller
         $form_info['slug'] = Project::generateSlug($request->title);
 
         $newProject = new Project();
+
+        if ($request->hasFile('image')) {
+            $img_path = Storage::put('image', $request->image);
+            $form_info['image'] = $img_path;
+        }
+
 
         $newProject = Project::create($form_info);
 

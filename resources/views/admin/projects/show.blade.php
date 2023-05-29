@@ -6,6 +6,9 @@
             <div class="card-body">
                 
                 <h5 class="card-title">{{ $project->title }}</h5>
+                @if ($project->image)
+                    <img class="img-thumbnail" src="{{asset('storage/' . $project->image)}}" alt="{{$project->title}}"/>
+                @endif
                 <p class="card-text">{{ $project->content }}</p>
                 <p>Slug: {{ $project->slug }}</p>
                 @foreach ($project->technologies as $technology)
