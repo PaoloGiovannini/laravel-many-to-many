@@ -10,6 +10,7 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Titolo</th>
+                <th scope="col">Immagine</th>
                 <th scope="col">Slug</th>
                 <th scope="col">Tipologia</th>
                 <th scope="col">Tecnologie</th>
@@ -21,6 +22,11 @@
                 <tr>
                     <td>{{ $project->id }}</td>
                     <td>{{ $project->title }}</td>
+                    <td>
+                        @if ($project->image)
+                            <img class="my-img" src="{{asset('storage/' . $project->image)}}" alt="{{$project->title}}"/>
+                        @endif
+                    </td>
                     <td>{{ $project->slug }}</td>
                     <td>{{$project->type?->name}}</td> 
                     <td>
@@ -28,14 +34,16 @@
                             <span class="badge rounded-pill text-bg-info">{{$technology->name}}</span>
                         @endforeach
                     </td>
-                    <td class="d-flex align-items-center">
-                        <a class="btn rounded-pill btn-primary me-2" href="{{route('admin.projects.show', $project->slug)}}">VEDI</a>
-                        <a href="{{route('admin.projects.edit', $project->slug)}}" class="btn rounded-pill btn-warning me-2">MODIFICA</a>
-                        <form action="{{route('admin.projects.destroy', ['project' => $project->slug])}}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn rounded-pill btn-danger">ELIMINA</button>
-                        </form>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <a class="btn rounded-pill btn-primary me-2" href="{{route('admin.projects.show', $project->slug)}}">VEDI</a>
+                            <a href="{{route('admin.projects.edit', $project->slug)}}" class="btn rounded-pill btn-warning me-2">MODIFICA</a>
+                            <form action="{{route('admin.projects.destroy', ['project' => $project->slug])}}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn rounded-pill btn-danger">ELIMINA</button>
+                            </form>
+                        </div>
                     </td>
                 </tr>
             @endforeach
